@@ -11,7 +11,3 @@ export const store = configureStore({
 
 persistOptionsState(() => store.getState().options);
 persistDecisionPickerState(() => store.getState().decisionPicker);
-
-export type RootState = ReturnType<typeof store.getState>;
-
-export type AppDispatch = typeof store.dispatch;
