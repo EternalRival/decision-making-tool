@@ -24,9 +24,21 @@ export async function animateDialog(
   options?: KeyframeOptions
 ): Promise<void> {
   const animations = [
-    dialog.animate(keyframes, options),
-    dialog.animate(keyframes, { ...options, pseudoElement: '::backdrop' }),
+    () => dialog.animate(keyframes, options),
+    () => dialog.animate(keyframes, { ...options, pseudoElement: '::backdrop' }),
   ];
 
-  await Promise.all(animations.map(({ finished }) => finished));
+  await Promise.allSettled(
+    animations.map((animate) => {
+      try {
+        return animate().finished;
+      } catch (error) {
+        if (error instanceof Error) {
+          return Promise.reject(error);
+        }
+
+        throw error;
+      }
+    })
+  );
 }
