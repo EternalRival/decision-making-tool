@@ -1,4 +1,4 @@
-const ICON_URL = '/assets/icons/icons.sprite.svg';
+import ICON_URL from '~/shared/assets/icons/icons.sprite.svg';
 
 type IconName = 'play' | 'timer' | 'volume-2' | 'volume-off' | 'undo-2' | 'x';
 
